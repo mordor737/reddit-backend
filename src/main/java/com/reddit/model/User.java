@@ -16,8 +16,6 @@ import java.time.Instant;
 @NoArgsConstructor
 @Entity
 @Builder
-@Getter
-@Setter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

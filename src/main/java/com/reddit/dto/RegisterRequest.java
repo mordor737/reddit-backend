@@ -1,4 +1,4 @@
-package com.reddit.controller.dto;
+package com.reddit.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

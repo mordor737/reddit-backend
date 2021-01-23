@@ -1,7 +1,8 @@
 package com.reddit.config;
 
-import com.reddit.config.security.JwtAuthenticationFilter;
+import com.reddit.security.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -18,19 +19,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @AllArgsConstructor
+@Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    /*private final UserDetailsService userDetailsService;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;*/
+    private final UserDetailsService userDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+   /* @Bean(BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
-    }
+    }*/
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+        log.debug("----------------------------------------");
         httpSecurity.cors().and()
                 .csrf().disable()
                 .authorizeRequests()
@@ -51,11 +54,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-        /*httpSecurity.addFilterBefore(jwtAuthenticationFilter,
+       /* httpSecurity.addFilterBefore(jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class);*/
     }
 
-   /* @Autowired
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
@@ -64,5 +67,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }*/
+    }
 }
